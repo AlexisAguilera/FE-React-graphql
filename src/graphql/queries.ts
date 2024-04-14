@@ -1,4 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
+
+import { ORDER_FRAGMENT } from "./fragments";
 
 export const GET_PRODUCTS = gql`
   query Products($options: ProductListOptions) {
@@ -14,21 +16,20 @@ export const GET_PRODUCTS = gql`
         variants {
           id
           name
-          sku
-          stockLevel
           currencyCode
           price
           priceWithTax
-          featuredAsset {
-            id
-            preview
-          }
-          assets {
-            id
-            preview
-          }
         }
       }
     }
   }
+`;
+
+export const GET_ACTIVE_ORDER = gql`
+  query GetActiveOrder {
+    activeOrder {
+      ...UpdatedOrder
+    }
+  }
+  ${ORDER_FRAGMENT}
 `;
